@@ -42,6 +42,7 @@ const StepCard = ({ number, title, desc, image }: { number: string, title: strin
 
 export default function HowToPopPage() {
   useEffect(() => {
+    document.title = "おいしい作り方 | Jolly Time Popcorn Japan";
     window.scrollTo(0, 0);
   }, []);
 
@@ -116,7 +117,7 @@ export default function HowToPopPage() {
           <h2 className="text-3xl md:text-5xl font-black mb-8 text-stone-900 tracking-tighter">
             最高の映画体験を、今すぐ。
           </h2>
-          <Link to="/" className="inline-flex items-center gap-3 bg-primary text-white px-10 py-5 rounded-full font-black text-xl hover:bg-red-700 transition-all shadow-xl shadow-red-200 group">
+          <Link to={process.env.NODE_ENV === 'production' ? "/jt_jp" : "/"} className="inline-flex items-center gap-3 bg-primary text-white px-10 py-5 rounded-full font-black text-xl hover:bg-red-700 transition-all shadow-xl shadow-red-200 group">
              トップへ戻る <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

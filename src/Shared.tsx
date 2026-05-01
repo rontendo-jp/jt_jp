@@ -47,12 +47,17 @@ export const Navbar = ({ onContactClick, transparent = true }: { onContactClick:
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLElement>, path: string) => {
-    if (path.startsWith('/')) return; // Let Link handle absolute paths
+    if (path.startsWith('/')) {
+      const fullPath = process.env.NODE_ENV === 'production' ? `/jt_jp${path}` : path;
+      navigate(fullPath);
+      return;
+    }
     
     e.preventDefault();
     setIsMenuOpen(false);
     
-    const isHomePage = window.location.hash.split('?')[0] === '#/';
+    const currentHash = window.location.hash.split('?')[0];
+    const isHomePage = currentHash === '#/' || currentHash === '#/jt_jp' || currentHash === '#/jt_jp/';
     
     if (!isHomePage) {
       navigate('/');
@@ -93,7 +98,7 @@ export const Navbar = ({ onContactClick, transparent = true }: { onContactClick:
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link to="/" className="relative z-50 block w-24 md:w-32 transition-transform hover:scale-105">
+        <Link to={process.env.NODE_ENV === 'production' ? "/jt_jp" : "/"} className="relative z-50 block w-24 md:w-32 transition-transform hover:scale-105">
           <div className="bg-white rounded-lg p-1 shadow-sm">
              <img 
                src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1768637819387-f1513167/logo-jolly-time.svg" 
@@ -122,7 +127,7 @@ export const Navbar = ({ onContactClick, transparent = true }: { onContactClick:
             ) : (
               <Link 
                 key={item.name} 
-                to={item.path}
+                to={process.env.NODE_ENV === 'production' && item.path.startsWith('/') ? `/jt_jp${item.path}` : item.path}
                 className={cn(
                   "font-bold transition-colors text-sm uppercase tracking-wider",
                   isScrolled || !transparent ? "text-stone-800 hover:text-primary" : "text-white hover:text-yellow-300"
@@ -179,7 +184,7 @@ export const Navbar = ({ onContactClick, transparent = true }: { onContactClick:
                 ) : (
                   <Link 
                     key={item.name} 
-                    to={item.path}
+                    to={process.env.NODE_ENV === 'production' && item.path.startsWith('/') ? `/jt_jp${item.path}` : item.path}
                     className="text-3xl font-black text-stone-900 hover:text-white transition-colors uppercase tracking-tight transform hover:scale-110 duration-200"
                     onClick={() => setIsMenuOpen(false)}
                   >

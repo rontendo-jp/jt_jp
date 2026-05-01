@@ -583,6 +583,7 @@ const MovieNightSection = ({ onContactClick }: { onContactClick: () => void }) =
 
 export default function HomePage() {
   useEffect(() => {
+    document.title = "Jolly Time Popcorn Japan";
     const script = document.createElement('script');
     script.src = "https://tally.so/widgets/embed.js";
     script.async = true;

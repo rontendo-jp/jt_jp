@@ -17,6 +17,8 @@ export default function App() {
     <HashRouter>
       <ScrollToTop />
       <Routes>
+        <Route path="/jt_jp" element={<HomePage />} />
+        <Route path="/jt_jp/how-to-pop" element={<HowToPopPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/how-to-pop" element={<HowToPopPage />} />
       </Routes>
