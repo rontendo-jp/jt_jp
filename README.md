@@ -1,25 +1,34 @@
-# Jolly Time Popcorn Japan
+# Jolly Time Popcorn Japan - Website
 
-A vibrant, product-focused one-page website for Jolly Time Popcorn in Japan. Features a responsive design, bold branding, and smooth animations.
+This component contains the official brand page and "How to Pop" guide for Jolly Time Popcorn in Japan.
 
-## Features
+## Functionality
+- Multi-page routing with `react-router-dom`
+- High-performance image optimization using `wsrv.nl`
+- Fully responsive design (Mobile & Desktop)
+- Tally.so popup form integration
+- Scroll-synced animations with `framer-motion`
 
-- **Responsive Navigation**: Sticky header with mobile menu support.
-- **Dynamic Hero Section**: engaging animations and brand-focused imagery.
-- **Product Showcase**: Grid layout for highlighting products.
-- **Brand Assets**: Integrates official Jolly Time logos and "Snack of Happiness" imagery.
-- **Interactive Elements**: Hover states, scroll animations using Framer Motion.
-
-## Props
-
-This component currently accepts no props as it is a self-contained page layout.
+## Dependencies
+- `react`: ^18.2.0
+- `react-router-dom`: ^6.20.0
+- `framer-motion`: ^10.16.4
+- `lucide-react`: ^0.292.0
+- `clsx`: ^2.0.0
+- `tailwind-merge`: ^2.0.0
 
 ## Usage
+Import the main component or use the routing structure.
 
 ```tsx
-import { JollyTimePopcornJapan } from '@/sd-components/6a8cf91b-a859-4c5c-add2-647fea8f42ae';
+import { JollyTimeLineupVariant } from '@/sd-components/4de89e95-73a8-4955-a01e-63c883729cd8'
 
 function App() {
-  return <JollyTimePopcornJapan />;
+  return <JollyTimeLineupVariant />
 }
 ```
+
+## Props
+| Prop | Type | Description |
+|------|------|-------------|
+| -    | -    | Currently self-contained with internal routing |
