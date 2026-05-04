@@ -1,5 +1,7 @@
 {
   "name": "jolly-time-popcorn-japan",
+  "version": "1.0.0",
+  "homepage": "https://rontendo-jp.github.io/jt_jp/",
   "description": "Product information website for Jolly Time Popcorn Japan",
   "dependencies": {
     "react": "^18.2.0",
@@ -17,7 +19,6 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Star, Heart, ArrowRight, Wheat, Film, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Heart, ArrowRight, Wheat, Film, ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { cn, optimizeImage, Navbar, Footer } from '../Shared';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * The home page of Jolly Time Popcorn Japan
@@ -32,7 +33,7 @@ const Hero = ({ onContactClick }: { onContactClick: () => void }) => {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-block bg-yellow-400 text-stone-900 px-6 py-2 rounded-full text-xs md:text-sm font-black tracking-widest mb-8 shadow-lg transform -rotate-2"
+              className="inline-flex items-center justify-center bg-yellow-400 text-stone-900 px-6 py-2 rounded-full text-xs md:text-sm font-black tracking-widest mb-8 shadow-lg transform -rotate-2"
             >
               1914年創業 • アメリカ老舗ブランド
             </motion.div>
@@ -149,6 +150,7 @@ const Hero = ({ onContactClick }: { onContactClick: () => void }) => {
 
 const HistorySection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   
   const historyPhotos = [
     {
@@ -181,10 +183,24 @@ const HistorySection = () => {
     setCurrentIndex((prev) => (prev - 1 + historyPhotos.length) % historyPhotos.length);
   };
 
+  useEffect(() => {
+    let interval: any;
+    if (isAutoPlaying) {
+      interval = setInterval(() => {
+        nextImage();
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, currentIndex]);
+
   return (
     <section id="history" className="py-24 bg-[#FFFDF7] relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row gap-16 md:items-center">
+        <div 
+          className="flex flex-col md:flex-row gap-16 md:items-center"
+          onMouseEnter={() => setIsAutoPlaying(false)}
+          onMouseLeave={() => setIsAutoPlaying(true)}
+        >
           <div className="w-full md:w-1/2">
              <motion.div
                initial={{ opacity: 0, x: -50 }}
@@ -232,18 +248,20 @@ const HistorySection = () => {
                  </div>
                </div>
 
-               <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 bg-yellow-400 p-4 md:p-6 rounded-full shadow-lg transform rotate-6 min-w-[100px] md:min-w-[120px] z-20">
+               <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 bg-yellow-400 rounded-full shadow-lg transform rotate-6 min-w-[100px] md:min-w-[120px] aspect-square flex items-center justify-center z-20">
                  <AnimatePresence mode="wait">
-                   <motion.span 
+                   <motion.div 
                      key={currentIndex}
                      initial={{ opacity: 0, y: 10 }}
                      animate={{ opacity: 1, y: 0 }}
                      exit={{ opacity: 0, y: -10 }}
-                     className="block text-center font-black text-stone-900 leading-none"
+                     className="flex flex-col items-center justify-center text-stone-900 leading-tight"
                    >
-                     {historyPhotos[currentIndex].year.includes('Vintage') || historyPhotos[currentIndex].year.includes('Classic') ? '' : <span className="text-[10px] md:text-xs">EST.</span>}
-                     <br/><span className="text-2xl md:text-3xl">{historyPhotos[currentIndex].year}</span>
-                   </motion.span>
+                     {!(historyPhotos[currentIndex].year.includes('Vintage') || historyPhotos[currentIndex].year.includes('Classic')) && (
+                       <span className="text-[10px] md:text-xs font-black opacity-60">EST.</span>
+                     )}
+                     <span className="text-2xl md:text-3xl font-black">{historyPhotos[currentIndex].year}</span>
+                   </motion.div>
                  </AnimatePresence>
                </div>
 
@@ -414,30 +432,34 @@ const GlobalSection = () => {
 
 const FlavorsSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
   
   const flavors = [
     { 
+      id: "blast-o-butter",
       name: "Blast O Butter", 
       nameKana: "ブラスト・オー・バター",
-      desc: "アメリカ映画館の定番。ふわっと広がる、バターの香り。",
+      desc: "アメリカ映画館の定番。アクション映画のあの興奮に、じゅわっと広がる濃厚バターがぴったり。手が止まらないまま、エンドロールを迎える。",
       color: "bg-yellow-400",
       tag: "THEATER STYLE",
       poppedImage: "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1768639991405-047c7ec0/IM4_8760s.jpg",
       boxImage: "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1768639990703-4b3ad643/IM4_8712s.jpg"
     },
     { 
+      id: "the-big-cheez",
       name: "The Big Cheez", 
       nameKana: "ザ・ビッグ・チーズ",
-      desc: "アメリカのショッピングモール。フードコートで味わう、濃厚チーズ。",
+      desc: "アメリカのショッピングモール発。ドラマ映画のじっくり見入る夜に、濃厚チェダーの旨みがクセになる。気づけば袋の底まで。",
       color: "bg-orange-500",
       tag: "RICH CHEDDAR",
       poppedImage: "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1768639991642-ff9f95cb/IM4_8780s.jpg",
       boxImage: "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1768639990940-68de0a0d/IM4_8717s.jpg"
     },
     { 
+      id: "fun-mania",
       name: "Fun Mania", 
       nameKana: "ファン・マニア",
-      desc: "アメリカの遊園地。甘じょっぱさが楽しい味。",
+      desc: "アメリカの遊園地から生まれた甘じょっぱさ。家族みんなで囲むファミリー映画の夜に、取り合いになること間違いなし。",
       color: "bg-purple-400",
       tag: "SWEET & SALTY",
       poppedImage: "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1768639992145-ecc807a5/IM4_8788s.jpg",
@@ -469,7 +491,8 @@ const FlavorsSection = () => {
                 whileHover={{ y: -10 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="group relative flex flex-col h-full"
+                onClick={() => navigate(`/product/${item.id}`)}
+                className="group relative flex flex-col h-full cursor-pointer"
               >
                 <div className={cn(
                   "aspect-square rounded-3xl mb-8 relative overflow-hidden shadow-xl transition-all duration-500 group-hover:shadow-2xl",
@@ -513,6 +536,10 @@ const FlavorsSection = () => {
                         loading="lazy"
                       />
                    </motion.div>
+
+                   <div className="absolute bottom-6 right-6 w-12 h-12 bg-white text-stone-900 rounded-full flex items-center justify-center shadow-lg translate-y-20 group-hover:translate-y-0 transition-transform duration-300">
+                      <Info size={24} />
+                   </div>
 
                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex gap-2">
                      <span className={cn(
@@ -584,6 +611,15 @@ const MovieNightSection = ({ onContactClick }: { onContactClick: () => void }) =
 export default function HomePage() {
   useEffect(() => {
     document.title = "Jolly Time Popcorn Japan";
+    
+    // Add favicon
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    // @ts-ignore
+    link.rel = 'icon';
+    // @ts-ignore
+    link.href = 'https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1777887931039-ce221e69/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);
+
     const script = document.createElement('script');
     script.src = "https://tally.so/widgets/embed.js";
     script.async = true;

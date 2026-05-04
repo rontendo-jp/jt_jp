@@ -1,34 +1,32 @@
-# Jolly Time Popcorn Japan - Website
+# Jolly Time Lineup Variant
 
-This component contains the official brand page and "How to Pop" guide for Jolly Time Popcorn in Japan.
-
-## Functionality
-- Multi-page routing with `react-router-dom`
-- High-performance image optimization using `wsrv.nl`
-- Fully responsive design (Mobile & Desktop)
-- Tally.so popup form integration
-- Scroll-synced animations with `framer-motion`
+A specialized variant of the Jolly Time Popcorn Japan website featuring an interactive product lineup and detailed product pages.
 
 ## Dependencies
-- `react`: ^18.2.0
-- `react-router-dom`: ^6.20.0
-- `framer-motion`: ^10.16.4
-- `lucide-react`: ^0.292.0
-- `clsx`: ^2.0.0
-- `tailwind-merge`: ^2.0.0
+
+- react: ^18.2.0
+- react-dom: ^18.2.0
+- react-router-dom: ^6.30.3
+- framer-motion: ^10.16.4
+- lucide-react: ^0.292.0
+- clsx: ^2.0.0
+- tailwind-merge: ^2.0.0
+
+## Components and Pages
+
+### Core Components
+- `JollyTimeLineupVariant`: Preview component for the library.
+- `Shared`: Common layout components like `Navbar` and `Footer`, and utility functions like `optimizeImage`.
+
+### Pages
+- `home.tsx`: The main landing page with interactive "Lineup" hover effects.
+- `ProductDetail.tsx`: Detailed information for each flavor (Blast O Butter, Fun Mania, The Big Cheez).
+- `how-to-pop.tsx`: Visual guide for preparation.
 
 ## Usage
-Import the main component or use the routing structure.
 
 ```tsx
 import { JollyTimeLineupVariant } from '@/sd-components/4de89e95-73a8-4955-a01e-63c883729cd8'
 
-function App() {
-  return <JollyTimeLineupVariant />
-}
+// Use in your App setup with HashRouter
 ```
-
-## Props
-| Prop | Type | Description |
-|------|------|-------------|
-| -    | -    | Currently self-contained with internal routing |

@@ -44,6 +44,14 @@ export default function HowToPopPage() {
   useEffect(() => {
     document.title = "おいしい作り方 | Jolly Time Popcorn Japan";
     window.scrollTo(0, 0);
+
+    // Add favicon
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    // @ts-ignore
+    link.rel = 'icon';
+    // @ts-ignore
+    link.href = 'https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/1af87180-f388-40b0-98a3-a44c0095e3ea/1777887931039-ce221e69/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);
   }, []);
 
   const openContactForm = () => {

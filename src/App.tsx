@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/home';
 import HowToPopPage from './pages/how-to-pop';
+import ProductDetailPage from './pages/ProductDetail';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -19,8 +20,10 @@ export default function App() {
       <Routes>
         <Route path="/jt_jp" element={<HomePage />} />
         <Route path="/jt_jp/how-to-pop" element={<HowToPopPage />} />
+        <Route path="/jt_jp/product/:slug" element={<ProductDetailPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/how-to-pop" element={<HowToPopPage />} />
+        <Route path="/product/:slug" element={<ProductDetailPage />} />
       </Routes>
     </HashRouter>
   );
